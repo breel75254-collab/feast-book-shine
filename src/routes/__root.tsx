@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { LangProvider, useLang } from "../lib/i18n";
 
 function NotFoundComponent() {
   return (
@@ -123,27 +124,51 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function LangToggle() {
+  const { lang, setLang } = useLang();
+  return (
+    <div className="flex overflow-hidden rounded-full border border-input text-xs font-semibold">
+      {(["en", "sw"] as const).map((l) => (
+        <button
+          key={l}
+          onClick={() => setLang(l)}
+          aria-pressed={lang === l}
+          className={
+            lang === l
+              ? "bg-primary px-2.5 py-1.5 text-primary-foreground"
+              : "bg-background px-2.5 py-1.5 text-muted-foreground hover:bg-secondary"
+          }
+        >
+          {l === "en" ? "EN" : "SW"}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function Header() {
+  const { t } = useLang();
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link to="/" className="font-display text-xl font-bold tracking-tight">
           Tangaza<span className="text-primary">.ke</span>
         </Link>
-        <nav className="flex items-center gap-5 text-sm font-medium">
+        <nav className="flex items-center gap-3 text-sm font-medium sm:gap-5">
           <Link
             to="/"
             className="hidden text-muted-foreground transition-colors hover:text-foreground sm:block"
             activeProps={{ className: "text-foreground" }}
             activeOptions={{ exact: true }}
           >
-            Browse
+            {t("browse")}
           </Link>
+          <LangToggle />
           <Link
             to="/post"
             className="rounded-full bg-primary px-4 py-2 text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Post an ad
+            {t("postAd")}
           </Link>
         </nav>
       </div>
@@ -152,6 +177,7 @@ function Header() {
 }
 
 function Footer() {
+  const { t } = useLang();
   return (
     <footer className="border-t border-border bg-card">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-3">
@@ -159,27 +185,21 @@ function Footer() {
           <p className="font-display text-lg font-bold">
             Tangaza<span className="text-primary">.ke</span>
           </p>
+          <p className="mt-2 text-sm text-muted-foreground">{t("tagline")}</p>
+        </div>
+        <div>
+          <p className="text-sm font-semibold">{t("otherWays")}</p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Simple, fast classifieds for rural Kenya — rentals, jobs and car hire.
-            Works on any phone.
+            {t("smsLine")}
+            <br />
+            {t("whatsappLine")}
+            <br />
+            {t("ussdLine")}
           </p>
         </div>
         <div>
-          <p className="text-sm font-semibold">Other ways to post</p>
-          <p className="mt-2 text-sm text-muted-foreground">
-            SMS: send your ad to 40777
-            <br />
-            WhatsApp: 0700 000 000
-            <br />
-            USSD: *384*77# (no internet needed)
-          </p>
-        </div>
-        <div>
-          <p className="text-sm font-semibold">Stay safe</p>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Never pay before viewing. Look for the verified badge and report
-            suspicious numbers.
-          </p>
+          <p className="text-sm font-semibold">{t("staySafe")}</p>
+          <p className="mt-2 text-sm text-muted-foreground">{t("staySafeText")}</p>
         </div>
       </div>
       <div className="border-t border-border py-4 text-center text-xs text-muted-foreground">
@@ -194,13 +214,15 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col">
-        <Header />
-        <main className="flex-1">
-          <Outlet />
-        </main>
-        <Footer />
-      </div>
+      <LangProvider>
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
+      </LangProvider>
     </QueryClientProvider>
   );
 }
