@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { categories } from "../lib/listings";
+import { useLang, categoryLabel } from "../lib/i18n";
 
 export const Route = createFileRoute("/post")({
   head: () => ({
@@ -27,6 +28,7 @@ const inputClass =
   "w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring";
 
 function PostPage() {
+  const { t } = useLang();
   const [submitted, setSubmitted] = useState(false);
   const [adCode, setAdCode] = useState("");
   const [form, setForm] = useState({
@@ -57,33 +59,32 @@ function PostPage() {
       <div className="mx-auto max-w-xl px-4 py-20 text-center">
         <div className="rounded-2xl border border-border bg-card p-10">
           <p className="text-4xl">✅</p>
-          <h1 className="mt-4 text-3xl font-bold">Ad received!</h1>
+          <h1 className="mt-4 text-3xl font-bold">{t("adReceived")}</h1>
           <p className="mt-3 text-muted-foreground">
-            Your ad <strong className="text-foreground">“{form.title}”</strong> is now
-            in review. Once approved it goes live — usually within the hour.
+            <strong className="text-foreground">“{form.title}”</strong> {t("inReview")}
           </p>
           <div className="mt-6 rounded-xl bg-secondary p-4">
-            <p className="text-sm text-secondary-foreground">Your ad code — keep it safe:</p>
+            <p className="text-sm text-secondary-foreground">{t("yourAdCode")}</p>
             <p className="mt-1 font-display text-2xl font-bold tracking-widest">{adCode}</p>
           </div>
           <p className="mt-4 text-sm text-muted-foreground">
-            Use this code to edit, renew or delete your ad later — e.g. send{" "}
+            {t("codeUsage")}{" "}
             <span className="font-mono text-foreground">EDIT {adCode} price 8000</span>{" "}
-            by SMS to 40777.
+            {t("bySms")}
           </p>
           {form.boost !== "free" && (
             <p className="mt-4 text-sm text-muted-foreground">
-              You'll receive an M-Pesa prompt on{" "}
-              <strong className="text-foreground">{form.phone}</strong> to complete
-              your {form.boost === "featured" ? "KES 300 featured" : "KES 50 extended"}{" "}
-              payment.
+              {t("mpesaPrompt")}{" "}
+              <strong className="text-foreground">{form.phone}</strong> {t("toComplete")}{" "}
+              {form.boost === "featured" ? t("featuredPayment") : t("extendedPayment")}{" "}
+              {t("payment")}
             </p>
           )}
           <button
             onClick={() => setSubmitted(false)}
             className="mt-8 rounded-full border border-input px-6 py-3 text-sm font-semibold hover:bg-secondary"
           >
-            Post another ad
+            {t("postAnother")}
           </button>
         </div>
       </div>
@@ -95,39 +96,33 @@ function PostPage() {
       <div className="grid gap-12 lg:grid-cols-2">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary">
-            Post an ad
+            {t("postKicker")}
           </p>
-          <h1 className="mt-3 text-4xl font-bold sm:text-5xl">Reach buyers near you</h1>
-          <p className="mt-4 leading-relaxed text-muted-foreground">
-            One short form — no accounts, no CV uploads. Your ad is reviewed, then
-            goes live with click-to-call and WhatsApp buttons.
-          </p>
+          <h1 className="mt-3 text-4xl font-bold sm:text-5xl">{t("postTitle")}</h1>
+          <p className="mt-4 leading-relaxed text-muted-foreground">{t("postSub")}</p>
           <div className="mt-8 space-y-4 rounded-2xl border border-border bg-card p-6 text-sm">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="font-semibold">Free</p>
-                <p className="text-muted-foreground">Live for 7 days</p>
+                <p className="font-semibold">{t("planFree")}</p>
+                <p className="text-muted-foreground">{t("planFreeDesc")}</p>
               </div>
               <p className="font-semibold text-primary">KES 0</p>
             </div>
             <div className="flex items-start justify-between gap-4 border-t border-border pt-4">
               <div>
-                <p className="font-semibold">Extended</p>
-                <p className="text-muted-foreground">Live for 30 days</p>
+                <p className="font-semibold">{t("planExtended")}</p>
+                <p className="text-muted-foreground">{t("planExtendedDesc")}</p>
               </div>
               <p className="font-semibold text-primary">KES 50</p>
             </div>
             <div className="flex items-start justify-between gap-4 border-t border-border pt-4">
               <div>
-                <p className="font-semibold">Featured</p>
-                <p className="text-muted-foreground">Top of the list for 30 days + verified check</p>
+                <p className="font-semibold">{t("planFeatured")}</p>
+                <p className="text-muted-foreground">{t("planFeaturedDesc")}</p>
               </div>
               <p className="font-semibold text-primary">KES 300</p>
             </div>
-            <p className="border-t border-border pt-4 text-muted-foreground">
-              Paid options are completed with an M-Pesa prompt on your phone — no
-              cards, no sign-up.
-            </p>
+            <p className="border-t border-border pt-4 text-muted-foreground">{t("mpesaNote")}</p>
           </div>
         </div>
 
@@ -135,40 +130,40 @@ function PostPage() {
           <div className="grid gap-5">
             <div>
               <label htmlFor="title" className="mb-1.5 block text-sm font-medium">
-                Ad title
+                {t("labelTitle")}
               </label>
               <input
                 id="title"
                 required
                 value={form.title}
                 onChange={update("title")}
-                placeholder="e.g. Bedsitter near Maseno University"
+                placeholder={t("phTitle")}
                 className={inputClass}
               />
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <label htmlFor="category" className="mb-1.5 block text-sm font-medium">
-                  Category
+                  {t("labelCategory")}
                 </label>
                 <select id="category" value={form.category} onChange={update("category")} className={inputClass}>
                   {categories.map((c) => (
                     <option key={c.name} value={c.name}>
-                      {c.name}
+                      {categoryLabel(c.name, t)}
                     </option>
                   ))}
                 </select>
               </div>
               <div>
                 <label htmlFor="price" className="mb-1.5 block text-sm font-medium">
-                  Price
+                  {t("labelPrice")}
                 </label>
                 <input
                   id="price"
                   required
                   value={form.price}
                   onChange={update("price")}
-                  placeholder="e.g. KES 6,500 / month"
+                  placeholder={t("phPrice")}
                   className={inputClass}
                 />
               </div>
@@ -176,20 +171,20 @@ function PostPage() {
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <label htmlFor="location" className="mb-1.5 block text-sm font-medium">
-                  Location
+                  {t("labelLocation")}
                 </label>
                 <input
                   id="location"
                   required
                   value={form.location}
                   onChange={update("location")}
-                  placeholder="e.g. Maseno, Kisumu County"
+                  placeholder={t("phLocation")}
                   className={inputClass}
                 />
               </div>
               <div>
                 <label htmlFor="phone" className="mb-1.5 block text-sm font-medium">
-                  Your phone number
+                  {t("labelPhone")}
                 </label>
                 <input
                   id="phone"
@@ -197,14 +192,14 @@ function PostPage() {
                   type="tel"
                   value={form.phone}
                   onChange={update("phone")}
-                  placeholder="e.g. 0712 345 678"
+                  placeholder={t("phPhone")}
                   className={inputClass}
                 />
               </div>
             </div>
             <div>
               <label htmlFor="description" className="mb-1.5 block text-sm font-medium">
-                Description
+                {t("labelDescription")}
               </label>
               <textarea
                 id="description"
@@ -212,17 +207,17 @@ function PostPage() {
                 rows={4}
                 value={form.description}
                 onChange={update("description")}
-                placeholder="What are you offering? Condition, terms, what's included…"
+                placeholder={t("phDescription")}
                 className={inputClass}
               />
             </div>
             <fieldset>
-              <legend className="mb-1.5 text-sm font-medium">Listing plan</legend>
+              <legend className="mb-1.5 text-sm font-medium">{t("labelPlan")}</legend>
               <div className="grid gap-2 sm:grid-cols-3">
                 {[
-                  { value: "free", label: "Free · 7 days" },
-                  { value: "extended", label: "KES 50 · 30 days" },
-                  { value: "featured", label: "KES 300 · Featured" },
+                  { value: "free", label: t("planFreeShort") },
+                  { value: "extended", label: t("planExtendedShort") },
+                  { value: "featured", label: t("planFeaturedShort") },
                 ].map((p) => (
                   <label
                     key={p.value}
@@ -249,12 +244,9 @@ function PostPage() {
               type="submit"
               className="mt-2 w-full rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
             >
-              Submit for review
+              {t("submit")}
             </button>
-            <p className="text-center text-xs text-muted-foreground">
-              By posting you agree to our terms. Scams and fake listings are removed
-              and reported.
-            </p>
+            <p className="text-center text-xs text-muted-foreground">{t("termsNote")}</p>
           </div>
         </form>
       </div>
