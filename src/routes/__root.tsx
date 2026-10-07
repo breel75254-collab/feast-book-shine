@@ -78,21 +78,30 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Ujamaa Bar & Restaurant — Maseno" },
+      {
+        name: "description",
+        content:
+          "Ujamaa Bar & Restaurant, opposite Maseno University. Good food, cold beer, great vibes. Dine-in, takeaway and table bookings.",
+      },
+      { property: "og:title", content: "Ujamaa Bar & Restaurant — Maseno" },
+      {
+        property: "og:description",
+        content:
+          "Good food, cold beer, great vibes. Opposite Maseno University. Book a table online.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
@@ -115,13 +124,80 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function Header() {
+  return (
+    <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+        <Link to="/" className="font-display text-xl font-semibold tracking-tight">
+          Ujamaa <span className="text-primary">Bar & Restaurant</span>
+        </Link>
+        <nav className="flex items-center gap-6 text-sm font-medium">
+          <Link
+            to="/"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+            activeProps={{ className: "text-foreground" }}
+            activeOptions={{ exact: true }}
+          >
+            Home
+          </Link>
+          <Link
+            to="/booking"
+            className="rounded-full bg-primary px-4 py-2 text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Book a table
+          </Link>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="border-t border-border">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-3">
+        <div>
+          <p className="font-display text-lg font-semibold">Ujamaa Bar & Restaurant</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Good food, cold beer, great vibes — opposite Maseno University.
+          </p>
+        </div>
+        <div>
+          <p className="text-sm font-semibold">Find us</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Off Maseno–Kisumu Road, opposite Maseno University, Maseno
+          </p>
+        </div>
+        <div>
+          <p className="text-sm font-semibold">Talk to us</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            <a href="tel:+254771324567" className="hover:text-foreground">
+              0771 324 567
+            </a>
+            <br />
+            Open daily from 5:00 pm
+          </p>
+        </div>
+      </div>
+      <div className="border-t border-border py-4 text-center text-xs text-muted-foreground">
+        © {new Date().getFullYear()} Ujamaa Bar & Restaurant, Maseno
+      </div>
+    </footer>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
     </QueryClientProvider>
   );
 }
