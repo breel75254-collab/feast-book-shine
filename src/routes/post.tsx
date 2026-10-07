@@ -31,7 +31,7 @@ function PostPage() {
   const [adCode, setAdCode] = useState("");
   const [form, setForm] = useState({
     title: "",
-    category: categories[0].name,
+    category: categories[0]?.name ?? "Rentals",
     price: "",
     location: "",
     phone: "",
