@@ -78,17 +78,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Ujamaa Bar & Restaurant — Maseno" },
+      { title: "Tangaza — Simple Classifieds for Rural Kenya" },
       {
         name: "description",
         content:
-          "Ujamaa Bar & Restaurant, opposite Maseno University. Good food, cold beer, great vibes. Dine-in, takeaway and table bookings.",
+          "Rentals, jobs and car hire across Kenya. Fast on any phone, cheap to post, verified listings.",
       },
-      { property: "og:title", content: "Ujamaa Bar & Restaurant — Maseno" },
+      { property: "og:title", content: "Tangaza — Simple Classifieds for Rural Kenya" },
       {
         property: "og:description",
-        content:
-          "Good food, cold beer, great vibes. Opposite Maseno University. Book a table online.",
+        content: "Rentals, jobs and car hire. Fast on any phone, cheap to post, verified listings.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -126,25 +125,25 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <Link to="/" className="font-display text-xl font-semibold tracking-tight">
-          Ujamaa <span className="text-primary">Bar & Restaurant</span>
+        <Link to="/" className="font-display text-xl font-bold tracking-tight">
+          Tangaza<span className="text-primary">.ke</span>
         </Link>
-        <nav className="flex items-center gap-6 text-sm font-medium">
+        <nav className="flex items-center gap-5 text-sm font-medium">
           <Link
             to="/"
-            className="text-muted-foreground transition-colors hover:text-foreground"
+            className="hidden text-muted-foreground transition-colors hover:text-foreground sm:block"
             activeProps={{ className: "text-foreground" }}
             activeOptions={{ exact: true }}
           >
-            Home
+            Browse
           </Link>
           <Link
-            to="/booking"
+            to="/post"
             className="rounded-full bg-primary px-4 py-2 text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Book a table
+            Post an ad
           </Link>
         </nav>
       </div>
@@ -154,33 +153,37 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="border-t border-border">
+    <footer className="border-t border-border bg-card">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-3">
         <div>
-          <p className="font-display text-lg font-semibold">Ujamaa Bar & Restaurant</p>
+          <p className="font-display text-lg font-bold">
+            Tangaza<span className="text-primary">.ke</span>
+          </p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Good food, cold beer, great vibes — opposite Maseno University.
+            Simple, fast classifieds for rural Kenya — rentals, jobs and car hire.
+            Works on any phone.
           </p>
         </div>
         <div>
-          <p className="text-sm font-semibold">Find us</p>
+          <p className="text-sm font-semibold">Other ways to post</p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Off Maseno–Kisumu Road, opposite Maseno University, Maseno
-          </p>
-        </div>
-        <div>
-          <p className="text-sm font-semibold">Talk to us</p>
-          <p className="mt-2 text-sm text-muted-foreground">
-            <a href="tel:+254771324567" className="hover:text-foreground">
-              0771 324 567
-            </a>
+            SMS: send your ad to 40777
             <br />
-            Open daily from 5:00 pm
+            WhatsApp: 0700 000 000
+            <br />
+            USSD: *384*77# (no internet needed)
+          </p>
+        </div>
+        <div>
+          <p className="text-sm font-semibold">Stay safe</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Never pay before viewing. Look for the verified badge and report
+            suspicious numbers.
           </p>
         </div>
       </div>
       <div className="border-t border-border py-4 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Ujamaa Bar & Restaurant, Maseno
+        © {new Date().getFullYear()} Tangaza.ke · Kisumu, Kenya
       </div>
     </footer>
   );
