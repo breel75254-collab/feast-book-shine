@@ -78,17 +78,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Ujamaa Bar & Restaurant — Maseno" },
+      { title: "Tangaza — Simple Classifieds for Rural Kenya" },
       {
         name: "description",
         content:
-          "Ujamaa Bar & Restaurant, opposite Maseno University. Good food, cold beer, great vibes. Dine-in, takeaway and table bookings.",
+          "Rentals, jobs and car hire across Kenya. Fast on any phone, cheap to post, verified listings.",
       },
-      { property: "og:title", content: "Ujamaa Bar & Restaurant — Maseno" },
+      { property: "og:title", content: "Tangaza — Simple Classifieds for Rural Kenya" },
       {
         property: "og:description",
-        content:
-          "Good food, cold beer, great vibes. Opposite Maseno University. Book a table online.",
+        content: "Rentals, jobs and car hire. Fast on any phone, cheap to post, verified listings.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
