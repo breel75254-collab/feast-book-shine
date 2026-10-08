@@ -203,7 +203,8 @@ function Footer() {
         </div>
       </div>
       <div className="border-t border-border py-4 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Tangaza.ke · Kisumu, Kenya
+        © {new Date().getFullYear()} Tangaza.ke · Kisumu, Kenya ·{" "}
+        <Link to="/admin" className="hover:text-foreground">Admin</Link>
       </div>
     </footer>
   );
