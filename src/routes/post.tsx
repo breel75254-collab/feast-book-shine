@@ -264,10 +264,12 @@ function PostPage() {
             </fieldset>
             <button
               type="submit"
-              className="mt-2 w-full rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+              disabled={sending}
+              className="mt-2 w-full rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-60"
             >
-              {t("submit")}
+              {sending ? "…" : t("submit")}
             </button>
+            {error && <p className="text-center text-sm text-destructive">{error}</p>}
             <p className="text-center text-xs text-muted-foreground">{t("termsNote")}</p>
           </div>
         </form>
