@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { categories } from "../lib/listings";
 import { useLang, categoryLabel } from "../lib/i18n";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/post")({
   head: () => ({
@@ -31,6 +32,8 @@ function PostPage() {
   const { t } = useLang();
   const [submitted, setSubmitted] = useState(false);
   const [adCode, setAdCode] = useState("");
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({
     title: "",
     category: categories[0]?.name ?? "Rentals",
@@ -47,10 +50,29 @@ function PostPage() {
     ) => setForm((f) => ({ ...f, [field]: e.target.value }));
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    setError("");
+    setSending(true);
     const prefix = form.category === "Rentals" ? "RN" : form.category === "Jobs" ? "JB" : "CH";
-    setAdCode(`${prefix}${Math.floor(1000 + Math.random() * 9000)}`);
+    const code = `${prefix}${Math.floor(100000 + Math.random() * 900000)}`;
+    const { error: err } = await supabase.from("ads").insert({
+      code,
+      title: form.title.trim(),
+      category: form.category,
+      price: form.price.trim(),
+      location: form.location.trim(),
+      phone: form.phone.trim(),
+      description: form.description.trim(),
+      plan: form.boost,
+      payment_status: form.boost === "free" ? "none" : "pending",
+    });
+    setSending(false);
+    if (err) {
+      setError("Could not send your ad. Please check the details and try again.");
+      return;
+    }
+    setAdCode(code);
     setSubmitted(true);
   }
 

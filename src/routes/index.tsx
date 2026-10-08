@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { categories, listings, type Category } from "../lib/listings";
+import { useEffect, useMemo, useState } from "react";
+import { categories, listings, type Category, type Listing } from "../lib/listings";
+import { supabase } from "@/integrations/supabase/client";
 import { useLang, categoryLabel, categoryBlurb } from "../lib/i18n";
 
 export const Route = createFileRoute("/")({
@@ -28,10 +29,39 @@ function Index() {
   const { t } = useLang();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<Category | "All">("All");
+  const [liveAds, setLiveAds] = useState<Listing[]>([]);
+
+  useEffect(() => {
+    supabase
+      .from("ads")
+      .select("code,title,category,price,location,phone,description,verified,plan,approved_at,created_at")
+      .eq("status", "approved")
+      .order("approved_at", { ascending: false })
+      .limit(100)
+      .then(({ data }) => {
+        if (!data) return;
+        const sorted = [...data].sort(
+          (a, b) => Number(b.plan === "featured") - Number(a.plan === "featured"),
+        );
+        setLiveAds(
+          sorted.map((a) => ({
+            id: a.code,
+            title: a.title,
+            category: a.category as Category,
+            price: a.price,
+            location: a.location,
+            phone: a.phone,
+            description: a.description,
+            verified: a.verified,
+            posted: new Date(a.approved_at ?? a.created_at).toLocaleDateString(),
+          })),
+        );
+      });
+  }, []);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return listings.filter((l) => {
+    return [...liveAds, ...listings].filter((l) => {
       if (category !== "All" && l.category !== category) return false;
       if (!q) return true;
       return [l.title, l.location, l.description, l.price]
@@ -39,7 +69,7 @@ function Index() {
         .toLowerCase()
         .includes(q);
     });
-  }, [query, category]);
+  }, [query, category, liveAds]);
 
   return (
     <div>
