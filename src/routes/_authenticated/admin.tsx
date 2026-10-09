@@ -44,7 +44,7 @@ function AdminPage() {
 
   const load = useCallback(async () => {
     const { data } = await supabase
-      .from("ads")
+      .from("listings")
       .select("*")
       .eq("status", tab)
       .order("created_at", { ascending: false });
@@ -57,7 +57,7 @@ function AdminPage() {
 
   async function update(id: string, changes: Partial<Ad>) {
     setBusyId(id);
-    const { data, error } = await supabase.from("ads").update(changes).eq("id", id).select("id");
+    const { data, error } = await supabase.from("listings").update(changes).eq("id", id).select("id");
     setBusyId(null);
     if (error || !data?.length) {
       window.alert(
