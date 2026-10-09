@@ -57,8 +57,14 @@ function AdminPage() {
 
   async function update(id: string, changes: Partial<Ad>) {
     setBusyId(id);
-    await supabase.from("ads").update(changes).eq("id", id);
+    const { data, error } = await supabase.from("ads").update(changes).eq("id", id).select("id");
     setBusyId(null);
+    if (error || !data?.length) {
+      window.alert(
+        "This change was not saved. Please sign out, sign in again and retry." +
+          (error ? `\n\n(${error.message})` : ""),
+      );
+    }
     load();
   }
 
