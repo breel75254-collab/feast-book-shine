@@ -7,13 +7,13 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/post")({
   head: () => ({
     meta: [
-      { title: "Post an Ad — Tangaza.ke" },
+      { title: "Post an Ad — Tangaza Africa" },
       {
         name: "description",
         content:
           "Post a rental, job or car-hire ad in under a minute. Free listings for 7 days, M-Pesa boosts from KES 50.",
       },
-      { property: "og:title", content: "Post an Ad — Tangaza.ke" },
+      { property: "og:title", content: "Post an Ad — Tangaza Africa" },
       {
         property: "og:description",
         content: "Post a rental, job or car-hire ad in under a minute. Free for 7 days.",

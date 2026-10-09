@@ -79,13 +79,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Tangaza — Simple Classifieds for Rural Kenya" },
+      { title: "Tangaza Africa — Simple Classifieds for Rural Kenya" },
       {
         name: "description",
         content:
           "Rentals, jobs and car hire across Kenya. Fast on any phone, cheap to post, verified listings.",
       },
-      { property: "og:title", content: "Tangaza — Simple Classifieds for Rural Kenya" },
+      { property: "og:title", content: "Tangaza Africa — Simple Classifieds for Rural Kenya" },
       {
         property: "og:description",
         content: "Rentals, jobs and car hire. Fast on any phone, cheap to post, verified listings.",
@@ -152,7 +152,7 @@ function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link to="/" className="font-display text-xl font-bold tracking-tight">
-          Tangaza<span className="text-primary">.ke</span>
+          Tangaza<span className="text-primary"> Africa</span>
         </Link>
         <nav className="flex items-center gap-3 text-sm font-medium sm:gap-5">
           <Link
@@ -183,7 +183,7 @@ function Footer() {
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-3">
         <div>
           <p className="font-display text-lg font-bold">
-            Tangaza<span className="text-primary">.ke</span>
+            Tangaza<span className="text-primary"> Africa</span>
           </p>
           <p className="mt-2 text-sm text-muted-foreground">{t("tagline")}</p>
         </div>
@@ -203,7 +203,7 @@ function Footer() {
         </div>
       </div>
       <div className="border-t border-border py-4 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Tangaza.ke · Kisumu, Kenya ·{" "}
+        © {new Date().getFullYear()} Tangaza Africa · Kisumu, Kenya ·{" "}
         <Link to="/admin" className="hover:text-foreground">Admin</Link>
       </div>
     </footer>

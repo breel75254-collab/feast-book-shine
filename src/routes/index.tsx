@@ -7,13 +7,13 @@ import { useLang, categoryLabel, categoryBlurb } from "../lib/i18n";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Tangaza.ke — Rentals, Jobs & Car Hire in Rural Kenya" },
+      { title: "Tangaza Africa — Rentals, Jobs & Car Hire in Rural Kenya" },
       {
         name: "description",
         content:
           "Find rentals, jobs and car hire near you. Fast pages that work on any phone, cheap ads from free, verified listings you can trust.",
       },
-      { property: "og:title", content: "Tangaza.ke — Rentals, Jobs & Car Hire in Rural Kenya" },
+      { property: "og:title", content: "Tangaza Africa — Rentals, Jobs & Car Hire in Rural Kenya" },
       {
         property: "og:description",
         content: "Fast, cheap, verified classifieds for rural Kenya. Browse or post in under a minute.",
