@@ -33,7 +33,7 @@ function Index() {
 
   useEffect(() => {
     supabase
-      .from("ads")
+      .from("listings")
       .select("code,title,category,price,location,phone,description,verified,plan,approved_at,created_at")
       .eq("status", "approved")
       .order("approved_at", { ascending: false })

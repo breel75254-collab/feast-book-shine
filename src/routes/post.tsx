@@ -56,7 +56,7 @@ function PostPage() {
     setSending(true);
     const prefix = form.category === "Rentals" ? "RN" : form.category === "Jobs" ? "JB" : "CH";
     const code = `${prefix}${Math.floor(100000 + Math.random() * 900000)}`;
-    const { error: err } = await supabase.from("ads").insert({
+    const { error: err } = await supabase.from("listings").insert({
       code,
       title: form.title.trim(),
       category: form.category,
