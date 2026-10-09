@@ -5,9 +5,9 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Admin sign in — Tangaza.ke" },
-      { name: "description", content: "Sign in to review and approve ads on Tangaza.ke." },
-      { property: "og:title", content: "Admin sign in — Tangaza.ke" },
+      { title: "Admin sign in — Tangaza Africa" },
+      { name: "description", content: "Sign in to review and approve ads on Tangaza Africa." },
+      { property: "og:title", content: "Admin sign in — Tangaza Africa" },
       { property: "og:description", content: "Sign in to review and approve ads." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
