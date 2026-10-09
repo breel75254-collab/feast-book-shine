@@ -85,7 +85,57 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      listings: {
+        Row: {
+          approved_at: string | null
+          category: string | null
+          code: string | null
+          created_at: string | null
+          description: string | null
+          id: string | null
+          location: string | null
+          payment_status: string | null
+          phone: string | null
+          plan: string | null
+          price: string | null
+          status: string | null
+          title: string | null
+          verified: boolean | null
+        }
+        Insert: {
+          approved_at?: string | null
+          category?: string | null
+          code?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          location?: string | null
+          payment_status?: string | null
+          phone?: string | null
+          plan?: string | null
+          price?: string | null
+          status?: string | null
+          title?: string | null
+          verified?: boolean | null
+        }
+        Update: {
+          approved_at?: string | null
+          category?: string | null
+          code?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          location?: string | null
+          payment_status?: string | null
+          phone?: string | null
+          plan?: string | null
+          price?: string | null
+          status?: string | null
+          title?: string | null
+          verified?: boolean | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
