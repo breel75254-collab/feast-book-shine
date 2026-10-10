@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LangProvider, useLang } from "../lib/i18n";
+import { HelpChat } from "../components/HelpChat";
 
 function NotFoundComponent() {
   return (
@@ -223,6 +224,8 @@ function RootComponent() {
           </main>
           <Footer />
         </div>
+        <HelpChat />
+      </LangProvider>
       </LangProvider>
     </QueryClientProvider>
   );
