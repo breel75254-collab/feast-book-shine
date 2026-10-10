@@ -226,7 +226,6 @@ function RootComponent() {
         </div>
         <HelpChat />
       </LangProvider>
-      </LangProvider>
     </QueryClientProvider>
   );
 }
