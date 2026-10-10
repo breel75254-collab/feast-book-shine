@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+- App code reads/writes ads through the `listings` view, never `/ads` — browser ad blockers block URLs containing "ads".
+- AI calls live in server-only `src/server/ai.server.ts` (Lovable AI Gateway, Responses API); ad review runs in `reviewAd` server fn, help chat streams from `/api/chat` — keeps keys server-side.

@@ -5,6 +5,6 @@
 - [x] Apply chosen name to branding + SEO (titles, meta, header, footer)
 - [ ] Register tangaza.africa domain — waits on the user (purchase/connect decision)
 - [x] Fix admin "Failed to fetch" (ad blockers block "ads" addresses) — site now uses "listings"
-- [ ] AI auto-review of new ads (approve/reject by criteria) — waiting on user answers
+- [x] AI auto-review of new ads (approve / reject scams / unsure → admin; paid ads wait for payment)
 - [ ] Automatic payment prompts — real M-Pesa needs Safaricom business account (user)
-- [ ] AI helpdesk chat for customers — waiting on user answers
+- [x] AI helpdesk chat (one chat saved on visitor phone)
