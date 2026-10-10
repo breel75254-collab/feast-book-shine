@@ -16,6 +16,8 @@ export type Database = {
     Tables: {
       ads: {
         Row: {
+          ai_decision: string | null
+          ai_reason: string | null
           approved_at: string | null
           category: string
           code: string
@@ -32,6 +34,8 @@ export type Database = {
           verified: boolean
         }
         Insert: {
+          ai_decision?: string | null
+          ai_reason?: string | null
           approved_at?: string | null
           category: string
           code: string
@@ -48,6 +52,8 @@ export type Database = {
           verified?: boolean
         }
         Update: {
+          ai_decision?: string | null
+          ai_reason?: string | null
           approved_at?: string | null
           category?: string
           code?: string
@@ -87,6 +93,8 @@ export type Database = {
     Views: {
       listings: {
         Row: {
+          ai_decision: string | null
+          ai_reason: string | null
           approved_at: string | null
           category: string | null
           code: string | null
@@ -103,6 +111,8 @@ export type Database = {
           verified: boolean | null
         }
         Insert: {
+          ai_decision?: string | null
+          ai_reason?: string | null
           approved_at?: string | null
           category?: string | null
           code?: string | null
@@ -119,6 +129,8 @@ export type Database = {
           verified?: boolean | null
         }
         Update: {
+          ai_decision?: string | null
+          ai_reason?: string | null
           approved_at?: string | null
           category?: string | null
           code?: string | null
