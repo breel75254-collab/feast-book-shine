@@ -52,7 +52,7 @@ Unsure: anything you cannot confidently judge. Give a short reason (max 20 words
 
     const free = ad.plan === "free";
     const paid = ad.payment_status === "paid";
-    const changes: Record<string, unknown> = { ai_decision: decision, ai_reason: reason };
+    const changes: { ai_decision: string; ai_reason: string; status?: string; approved_at?: string } = { ai_decision: decision, ai_reason: reason };
     if (decision === "reject") changes.status = "rejected";
     if (decision === "approve" && (free || paid)) {
       changes.status = "approved";

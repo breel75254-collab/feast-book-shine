@@ -41,7 +41,8 @@ function Index() {
       .then(({ data }) => {
         if (!data) return;
         const planRank: Record<string, number> = { featured: 3, extended: 2, free: 1 };
-        const sorted = [...data].sort((a, b) => {
+        const rows = data as unknown as Array<{ code: string; title: string; category: string; price: string; location: string; phone: string; description: string; verified: boolean; plan: string; approved_at: string | null; created_at: string }>;
+        const sorted = [...rows].sort((a, b) => {
           const plan = (planRank[b.plan] ?? 0) - (planRank[a.plan] ?? 0);
           if (plan !== 0) return plan;
           if (a.verified !== b.verified) return Number(b.verified) - Number(a.verified);

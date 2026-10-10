@@ -48,7 +48,7 @@ function AdminPage() {
       .select("*")
       .eq("status", tab)
       .order("created_at", { ascending: false });
-    setAds(data ?? []);
+    setAds((data ?? []) as unknown as Ad[]);
   }, [tab]);
 
   useEffect(() => {
