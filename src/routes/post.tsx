@@ -3,6 +3,7 @@ import { useState, type FormEvent } from "react";
 import { categories } from "../lib/listings";
 import { useLang, categoryLabel } from "../lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
+import { reviewAd } from "@/lib/review.functions";
 
 export const Route = createFileRoute("/post")({
   head: () => ({
@@ -74,6 +75,7 @@ function PostPage() {
     }
     setAdCode(code);
     setSubmitted(true);
+    reviewAd({ data: { code } }).catch(() => {});
   }
 
   if (submitted) {

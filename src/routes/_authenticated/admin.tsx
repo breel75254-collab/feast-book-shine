@@ -48,7 +48,7 @@ function AdminPage() {
       .select("*")
       .eq("status", tab)
       .order("created_at", { ascending: false });
-    setAds(data ?? []);
+    setAds((data ?? []) as unknown as Ad[]);
   }, [tab]);
 
   useEffect(() => {
@@ -136,10 +136,27 @@ function AdminPage() {
                 </div>
                 <p className="mt-3 text-sm text-muted-foreground">{a.description}</p>
                 <p className="mt-2 text-sm">📍 {a.location} · 📞 <a className="text-primary" href={`tel:${a.phone}`}>{a.phone}</a></p>
+                {a.ai_decision && (
+                  <p className="mt-2 rounded-lg bg-secondary px-3 py-2 text-xs text-secondary-foreground">
+                    AI check: <strong className="capitalize">{a.ai_decision}</strong> — {a.ai_reason}
+                    {a.ai_decision === "approve" && needsPayment && !paid && " · will go live once payment is marked received"}
+                  </p>
+                )}
 
                 <div className="mt-4 flex flex-wrap gap-2">
                   {needsPayment && !paid && (
-                    <button disabled={busyId === a.id} onClick={() => update(a.id, { payment_status: "paid" })} className="rounded-full border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-primary/5">
+                    <button
+                      disabled={busyId === a.id}
+                      onClick={() =>
+                        update(
+                          a.id,
+                          a.ai_decision === "approve"
+                            ? { payment_status: "paid", status: "approved", approved_at: new Date().toISOString() }
+                            : { payment_status: "paid" },
+                        )
+                      }
+                      className="rounded-full border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-primary/5"
+                    >
                       Mark payment received
                     </button>
                   )}
