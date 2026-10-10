@@ -5,7 +5,7 @@ export const AI_MODEL = "openai/gpt-6-astra";
 
 /** Creates a per-request Lovable AI Gateway provider (Responses API). */
 export function createGateway(initialRunId?: string) {
-  const apiKey = process.env.LOVABLE_API_KEY;
+  const apiKey = process.env['LOVABLE_API_KEY'];
   if (!apiKey) throw new Error("LOVABLE_API_KEY is not configured");
   let runId = initialRunId?.trim() || undefined;
   const provider = createOpenAI({
